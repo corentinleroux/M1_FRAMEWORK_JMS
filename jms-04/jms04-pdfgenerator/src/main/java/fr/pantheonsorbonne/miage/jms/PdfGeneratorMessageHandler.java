@@ -66,7 +66,7 @@ public class PdfGeneratorMessageHandler implements Closeable {
 			JAXBContext jaxbContext = JAXBContext.newInstance(DiplomaInfo.class);
 			DiplomaInfo diploma = (DiplomaInfo) jaxbContext.createUnmarshaller()
 					.unmarshal(new StringReader(message.getText()));
-
+			System.out.println("Received Diploma Spec");
 			handledReceivedDiplomaSpect(diploma);
 
 		} catch (JMSException | JAXBException e) {
@@ -78,12 +78,14 @@ public class PdfGeneratorMessageHandler implements Closeable {
 	private void handledReceivedDiplomaSpect(DiplomaInfo diploma) {
 
 		try {
+			System.out.println("Generating Diploma");
 			DiplomaGenerator generator = new MiageDiplomaGenerator(diploma.getStudent());
 			InputStream is = generator.getContent();
 			byte[] data = new byte[is.available()];
 			is.read(data);
 			this.sendBinaryDiplomy(diploma, data);
 			is.close();
+			System.out.println("Generating Diploma done");
 		} catch (IOException e) {
 			System.err.println("failed to generate Diploma");
 		}
@@ -93,11 +95,13 @@ public class PdfGeneratorMessageHandler implements Closeable {
 	public void sendBinaryDiplomy(DiplomaInfo info, byte[] data) {
 
 		try {
+			System.out.println("Sending Diploma");
 			BytesMessage message = this.session.createBytesMessage();
 			message.setIntProperty("id", info.getId());
 			message.writeBytes(data);
 
 			this.diplomaFileProducer.send(message);
+			System.out.println("Sending Diploma done");
 
 		} catch (JMSException e) {
 			System.err.println("failed to send diploma Request");
