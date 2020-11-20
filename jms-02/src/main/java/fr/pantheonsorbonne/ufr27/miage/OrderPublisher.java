@@ -18,8 +18,8 @@ import javax.jms.Topic;
 public class OrderPublisher implements Closeable {
 
 	@Inject
-	@Named("order")
-	Topic topic;
+	@Named("ville")
+	Topic Paris;
 
 	@Inject
 	ConnectionFactory connectionFactory;
@@ -36,7 +36,7 @@ public class OrderPublisher implements Closeable {
 			this.connection = connectionFactory.createConnection("nicolas","nicolas");
 			connection.start();
 			this.session = connection.createSession();
-			this.messagePublisher = session.createProducer(topic);
+			this.messagePublisher = session.createProducer(Paris);
 		} catch (JMSException e) {
 			throw new RuntimeException(e);
 		}

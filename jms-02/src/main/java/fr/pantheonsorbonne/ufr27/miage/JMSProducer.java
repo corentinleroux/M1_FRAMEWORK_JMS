@@ -34,8 +34,7 @@ public class JMSProducer {
 		Hashtable<String, String> jndiBindings = new Hashtable<>();
 		jndiBindings.put(Context.INITIAL_CONTEXT_FACTORY, ActiveMQInitialContextFactory.class.getName());
 		jndiBindings.put("connectionFactory.ConnectionFactory", "tcp://localhost:61616");
-		jndiBindings.put("topic.OrderTopic", "OrderTopic");
-		
+		jndiBindings.put("topic.retard", "retard");
 		Context c = null;
 		try {
 			c = new InitialContext(jndiBindings);
@@ -50,12 +49,10 @@ public class JMSProducer {
 	}
 
 	@Produces
-	@Named("order")
+	@Named("retard")
 	public Topic getJMSQueue() throws NamingException {
-		return (Topic) JNDI_CONTEXT.lookup("OrderTopic");
+		return (Topic) JNDI_CONTEXT.lookup("retard");
 	}
-
-
 
 	@Produces
 
