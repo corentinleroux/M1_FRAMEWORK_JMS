@@ -18,8 +18,6 @@ public class AppPublisher {
 
 	
 	public static void main(String[] args) throws JMSException, NamingException, InterruptedException, IOException {
-
-	
 		
 		// initialize CDI 2.0 SE container
 		SeContainerInitializer initializer = SeContainerInitializer.newInstance();
