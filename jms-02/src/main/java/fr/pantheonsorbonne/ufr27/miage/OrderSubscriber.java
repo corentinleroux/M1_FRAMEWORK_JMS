@@ -50,7 +50,6 @@ public class OrderSubscriber implements Closeable {
 			
 			// Le Subscriber s'abonne à LyonTopic et MareilleTopic
 			messageConsumer = session.createDurableSubscriber(LyonTopic, "lyon-subscription");
-			messageConsumer = session.createDurableSubscriber(MarseilleTopic, "marseille-subscription");
 		} catch (JMSException e) {
 			throw new RuntimeException(e);
 		}

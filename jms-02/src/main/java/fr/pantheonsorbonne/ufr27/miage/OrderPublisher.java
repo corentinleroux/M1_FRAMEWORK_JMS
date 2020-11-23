@@ -47,14 +47,15 @@ public class OrderPublisher implements Closeable {
 
 	}
 
-	public String publish(String message) {
+	public String publish(String message, String Topic) {
 		try {
 			
-			// Le publisher envoi ParisTopic
-			this.PublishParis = session.createProducer(ParisTopic);
-			this.PublishParis.send(this.session.createTextMessage(message));
-		
+				if (Topic == "ParisTopic") {
+					this.PublishParis = session.createProducer(ParisTopic);
+					this.PublishParis.send(this.session.createTextMessage(message));
+				}
 			return message;
+			
 			
 		} catch (JMSException e) {
 			System.out.println("Failed to send message to queue");
