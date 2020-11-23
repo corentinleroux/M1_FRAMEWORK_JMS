@@ -21,7 +21,7 @@ public class AppSubscriber {
 		try (SeContainer container = initializer.disableDiscovery().addPackages(AppSubscriber.class).initialize()) {
 
 			final OrderSubscriber orderSubScriber = container.select(OrderSubscriber.class).get();
-
+	
 			while (true) {
 				String message = orderSubScriber.consume();
 				System.out.println("Message read from orderPublisher: " + message);
@@ -36,5 +36,6 @@ public class AppSubscriber {
 		System.exit(0);
 
 	}
+	
 
 }

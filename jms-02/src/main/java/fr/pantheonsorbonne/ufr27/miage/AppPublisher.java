@@ -6,14 +6,21 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.enterprise.inject.se.SeContainer;
 import javax.enterprise.inject.se.SeContainerInitializer;
+import javax.inject.Inject;
+import javax.inject.Named;
 import javax.jms.JMSException;
+import javax.jms.Topic;
 import javax.naming.NamingException;
 
 import org.apache.activemq.artemis.core.server.embedded.EmbeddedActiveMQ;
 
 public class AppPublisher {
+
+	
 	public static void main(String[] args) throws JMSException, NamingException, InterruptedException, IOException {
 
+		
+		
 		// initialize CDI 2.0 SE container
 		SeContainerInitializer initializer = SeContainerInitializer.newInstance();
 

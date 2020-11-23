@@ -20,8 +20,16 @@ import javax.jms.Topic;
 public class OrderSubscriber implements Closeable {
 
 	@Inject
-	@Named("order")
-	private Topic topic;
+	@Named("Paris")
+	private Topic ParisTopic;
+	
+	@Inject
+	@Named("Marseille")
+	private Topic MarseilleTopic;
+	
+	@Inject
+	@Named("Lyon")
+	private Topic LyonTopic;
 
 	@Inject
 	private ConnectionFactory connectionFactory;
@@ -38,7 +46,8 @@ public class OrderSubscriber implements Closeable {
 			connection.setClientID("Order subscriber " + UUID.randomUUID());
 			connection.start();
 			session = connection.createSession();
-			messageConsumer = session.createDurableSubscriber(topic, "order-subscription");
+			messageConsumer = session.createDurableSubscriber(LyonTopic, "lyon-subscription");
+			messageConsumer = session.createDurableSubscriber(MarseilleTopic, "marseille-subscription");
 		} catch (JMSException e) {
 			throw new RuntimeException(e);
 		}
