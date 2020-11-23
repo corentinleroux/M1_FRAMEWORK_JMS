@@ -19,6 +19,7 @@ import javax.jms.Topic;
 
 public class OrderSubscriber implements Closeable {
 
+	// On créé les topics
 	@Inject
 	@Named("Paris")
 	private Topic ParisTopic;
@@ -46,6 +47,8 @@ public class OrderSubscriber implements Closeable {
 			connection.setClientID("Order subscriber " + UUID.randomUUID());
 			connection.start();
 			session = connection.createSession();
+			
+			// Le Subscriber s'abonne à LyonTopic et MareilleTopic
 			messageConsumer = session.createDurableSubscriber(LyonTopic, "lyon-subscription");
 			messageConsumer = session.createDurableSubscriber(MarseilleTopic, "marseille-subscription");
 		} catch (JMSException e) {

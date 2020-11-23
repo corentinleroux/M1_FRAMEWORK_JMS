@@ -48,8 +48,10 @@ public class OrderPublisher implements Closeable {
 
 	public String publish(String message) {
 		try {
-			this.messagePublisher = session.createProducer(ParisTopic);
+			
+			// Le publisher envoi sur MarseilleTopic et ParisTopic
 			this.messagePublisher = session.createProducer(MarseilleTopic);
+			this.messagePublisher = session.createProducer(ParisTopic);
 			this.messagePublisher.send(this.session.createTextMessage(message));
 			return message;
 		} catch (JMSException e) {
