@@ -15,32 +15,10 @@ import org.apache.activemq.artemis.core.server.embedded.EmbeddedActiveMQ;
 public class AppInfogare {
 	public static void main(String[] args) throws JMSException, NamingException, InterruptedException, IOException {
 
-	/*	// initialize CDI 2.0 SE container
-		SeContainerInitializer initializer = SeContainerInitializer.newInstance();
-
-		try (SeContainer container = initializer.disableDiscovery().addPackages(AppInfogare.class).initialize()) {
-
-			System.out.println("Paris");
-			InfogareSub Infogare = container.select(InfogareSub.class).get();
-			Infogare.initConsume("Paris");
-			
-	
-			while (true) {
-				String message = Infogare.consume();
-				System.out.println("Message read from orderPublisher: " + message);
-				if ("EXIT".equals(message)) {
-					break;
-				}
-			}
-			Infogare.close();
-
-		}
-
-		System.exit(0); */
-
-		AppInfogareLyon Infogare = new AppInfogareLyon();
-		AppInfogareLyon Infogare2 = new AppInfogareLyon();
+		InfogareGenerique Infogare = new InfogareGenerique("Lyon");
+		InfogareGenerique Infogare2 = new InfogareGenerique("Marseille");
 		
-		Infogare.initInfogare("Marseille");
+		Infogare.initInfogare();
+		Infogare2.initInfogare();
 	}
 }
