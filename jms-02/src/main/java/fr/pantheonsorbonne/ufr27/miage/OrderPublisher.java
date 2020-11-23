@@ -26,12 +26,15 @@ public class OrderPublisher implements Closeable {
 	Topic MarseilleTopic;
 	
 	@Inject
+	@Named("Lyon")
+	Topic LyonTopic;
+	
+	@Inject
 	ConnectionFactory connectionFactory;
 
 	Connection connection;
 	Session session;
-	MessageProducer PublishParis;
-	MessageProducer PublishMarseille;
+	MessageProducer Publisher;
 
 	int index = 0;
 
@@ -51,12 +54,16 @@ public class OrderPublisher implements Closeable {
 		try {
 			
 				if (Topic == "ParisTopic") {
-					this.PublishParis = session.createProducer(ParisTopic);
-					this.PublishParis.send(this.session.createTextMessage(message));
+					this.Publisher = session.createProducer(ParisTopic);
+					this.Publisher.send(this.session.createTextMessage(message));
 				}
 				else if (Topic == "LyonTopic") {
-					this.PublishParis = session.createProducer(ParisTopic);
-					this.PublishParis.send(this.session.createTextMessage(message));
+					this.Publisher = session.createProducer(LyonTopic);
+					this.Publisher.send(this.session.createTextMessage(message));
+				}
+				else if (Topic == "MarseilleTopic") {
+					this.Publisher = session.createProducer(MarseilleTopic);
+					this.Publisher.send(this.session.createTextMessage(message));
 				}
 			return message;
 			
@@ -70,7 +77,7 @@ public class OrderPublisher implements Closeable {
 	@Override
 	public void close() throws IOException {
 		try {
-			PublishParis.close();
+			Publisher.close();
 			session.close();
 			connection.close();
 		} catch (JMSException e) {

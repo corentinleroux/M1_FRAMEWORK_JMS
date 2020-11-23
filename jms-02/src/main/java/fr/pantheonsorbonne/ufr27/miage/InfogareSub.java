@@ -22,6 +22,14 @@ public class InfogareSub implements Closeable {
 	@Inject
 	@Named("Paris")
 	private Topic ParisTopic;
+	
+	@Inject
+	@Named("Lyon")
+	private Topic LyonTopic;
+	
+	@Inject
+	@Named("Marseille")
+	private Topic MarseilleTopic;
 
 	@Inject
 	private ConnectionFactory connectionFactory;
@@ -30,7 +38,6 @@ public class InfogareSub implements Closeable {
 	private MessageConsumer messageConsumer = null ;
 
 	private Session session;
-	private String Ville ;
 	
 	@PostConstruct
 	void init() {
@@ -49,7 +56,19 @@ public class InfogareSub implements Closeable {
 	}
 	
 	public void initConsume(String Ville) {
-		if (Ville == "Paris") {
+		
+		if (Ville.equalsIgnoreCase("Marseille")) {
+			System.out.println("Je suis marseille");
+			try {
+				messageConsumer = session.createDurableSubscriber(MarseilleTopic, "Marseille-subscription");
+			} catch (JMSException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		else if (Ville.equalsIgnoreCase("Paris")) {
+			System.out.println("Je suis paris");
 			try {
 				messageConsumer = session.createDurableSubscriber(ParisTopic, "Paris-subscription");
 			} catch (JMSException e) {
@@ -57,6 +76,17 @@ public class InfogareSub implements Closeable {
 				e.printStackTrace();
 			}
 		}
+		
+		else if (Ville.equalsIgnoreCase("Lyon")) {
+			System.out.println("Je suis lyon");
+			try {
+				messageConsumer = session.createDurableSubscriber(LyonTopic, "Lyon-subscription");
+			} catch (JMSException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 	}
 
 	public String consume() {
@@ -81,10 +111,5 @@ public class InfogareSub implements Closeable {
 		}
 
 	}
-	
-	public void setVille(String Ville) {
-		this.Ville = Ville ;
-	}
-
 
 }

@@ -12,17 +12,18 @@ import org.apache.activemq.artemis.core.server.embedded.EmbeddedActiveMQ;
 
 
 
-public class AppInfogareParis {
-	public static void main(String[] args) throws JMSException, NamingException, InterruptedException, IOException {
+public class AppInfogareLyon {
+	public void initInfogare(String args) throws JMSException, NamingException, InterruptedException, IOException {
 
 		// initialize CDI 2.0 SE container
 		SeContainerInitializer initializer = SeContainerInitializer.newInstance();
 
-		try (SeContainer container = initializer.disableDiscovery().addPackages(AppSubscriber.class).initialize()) {
+		try (SeContainer container = initializer.disableDiscovery().addPackages(AppInfogareLyon.class).initialize()) {
 
+			System.out.println(args);
+			InfogareSub Infogare = container.select(InfogareSub.class).get();
+			Infogare.initConsume(args);
 			
-			InfogareParis Infogare = container.select(InfogareParis.class).get();
-			Infogare.initConsume("Paris");
 	
 			while (true) {
 				String message = Infogare.consume();
@@ -38,6 +39,4 @@ public class AppInfogareParis {
 		System.exit(0);
 
 	}
-	
-
 }

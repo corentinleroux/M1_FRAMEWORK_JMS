@@ -28,9 +28,9 @@ public class AppPublisher {
 
 			// create a message produce and consumer
 			final OrderPublisher orderPublisher = container.select(OrderPublisher.class).get();
+			orderPublisher.publish("test1Marseille", "MarseilleTopic");
 				orderPublisher.publish("test1Paris", "ParisTopic");
-				orderPublisher.publish("test2Paris", "ParisTopic");
-				orderPublisher.publish("test1Marseille", "MarseilleTopic");
+				orderPublisher.publish("test1Lyon", "LyonTopic");
 
 			orderPublisher.close();
 
@@ -39,10 +39,3 @@ public class AppPublisher {
 	}
 
 }
-
-
-//          Message     Topic
-// publish(monMessage, monTopic); 
-                   
-//                                                Topic     Selective Consumer
-// Infogare InfogareParisRetard = new Infogare ("ParisTopic", "retard") ;
