@@ -54,6 +54,10 @@ public class OrderPublisher implements Closeable {
 					this.PublishParis = session.createProducer(ParisTopic);
 					this.PublishParis.send(this.session.createTextMessage(message));
 				}
+				else if (Topic == "LyonTopic") {
+					this.PublishParis = session.createProducer(ParisTopic);
+					this.PublishParis.send(this.session.createTextMessage(message));
+				}
 			return message;
 			
 			

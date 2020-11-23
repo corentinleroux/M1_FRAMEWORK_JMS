@@ -17,7 +17,7 @@ import javax.jms.Session;
 import javax.jms.TextMessage;
 import javax.jms.Topic;
 
-public class InfogareParis implements Closeable {
+public class InfogareSub implements Closeable {
 
 	@Inject
 	@Named("Paris")
@@ -40,12 +40,7 @@ public class InfogareParis implements Closeable {
 			connection.start();
 			session = connection.createSession();
 			
-			System.out.println("NON OK");
 			
-			//if (Ville == "Paris") {
-			//	System.out.println("Test réussi");
-			//	messageConsumer = session.createDurableSubscriber(ParisTopic, "Paris-subscription");
-			//}
 			
 		} catch (JMSException e) {
 			throw new RuntimeException(e);
@@ -55,7 +50,6 @@ public class InfogareParis implements Closeable {
 	
 	public void initConsume(String Ville) {
 		if (Ville == "Paris") {
-			System.out.println("Test réussi");
 			try {
 				messageConsumer = session.createDurableSubscriber(ParisTopic, "Paris-subscription");
 			} catch (JMSException e) {

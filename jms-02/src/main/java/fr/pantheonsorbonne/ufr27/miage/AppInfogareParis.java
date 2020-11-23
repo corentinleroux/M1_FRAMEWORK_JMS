@@ -20,7 +20,9 @@ public class AppInfogareParis {
 
 		try (SeContainer container = initializer.disableDiscovery().addPackages(AppSubscriber.class).initialize()) {
 
-			final InfogareParis Infogare = container.select(InfogareParis.class).get();
+			
+			InfogareParis Infogare = container.select(InfogareParis.class).get();
+			Infogare.initConsume("Paris");
 	
 			while (true) {
 				String message = Infogare.consume();
