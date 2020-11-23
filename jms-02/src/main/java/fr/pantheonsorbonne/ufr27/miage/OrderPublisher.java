@@ -30,8 +30,8 @@ public class OrderPublisher implements Closeable {
 
 	Connection connection;
 	Session session;
-	MessageProducer messagePublisher;
-	MessageProducer messagePublisher2;
+	MessageProducer PublishParis;
+	MessageProducer PublishMarseille;
 
 	int index = 0;
 
@@ -50,12 +50,12 @@ public class OrderPublisher implements Closeable {
 	public String publish(String message) {
 		try {
 			
-			// Le publisher envoi sur MarseilleTopic et ParisTopic
-			this.messagePublisher = session.createProducer(MarseilleTopic);
-			this.messagePublisher2 = session.createProducer(ParisTopic);
-			this.messagePublisher.send(this.session.createTextMessage(message));
-			this.messagePublisher2.send(this.session.createTextMessage(message));
+			// Le publisher envoi ParisTopic
+			this.PublishParis = session.createProducer(ParisTopic);
+			this.PublishParis.send(this.session.createTextMessage(message));
+		
 			return message;
+			
 		} catch (JMSException e) {
 			System.out.println("Failed to send message to queue");
 			return "Nothing sent";
@@ -65,8 +65,7 @@ public class OrderPublisher implements Closeable {
 	@Override
 	public void close() throws IOException {
 		try {
-			messagePublisher.close();
-			messagePublisher2.close();
+			PublishParis.close();
 			session.close();
 			connection.close();
 		} catch (JMSException e) {

@@ -19,7 +19,7 @@ public class AppPublisher {
 	
 	public static void main(String[] args) throws JMSException, NamingException, InterruptedException, IOException {
 
-		
+	
 		
 		// initialize CDI 2.0 SE container
 		SeContainerInitializer initializer = SeContainerInitializer.newInstance();
@@ -28,11 +28,9 @@ public class AppPublisher {
 
 			// create a message produce and consumer
 			final OrderPublisher orderPublisher = container.select(OrderPublisher.class).get();
-
-			Scanner scan = new Scanner(System.in);
-			String line = "";
-			while (!(line = scan.nextLine()).equals("EXIT"))
-				orderPublisher.publish(line);
+				orderPublisher.publish("test1Paris", "ParisTopic");
+				orderPublisher.publish("test2Paris", "ParisTopic");
+				orderPublisher.publish("test1Marseille", "MarseilleTopic");
 
 			orderPublisher.close();
 
@@ -41,3 +39,10 @@ public class AppPublisher {
 	}
 
 }
+
+
+//          Message     Topic
+// publish(monMessage, monTopic); 
+                   
+//                                                Topic     Selective Consumer
+// Infogare InfogareParisRetard = new Infogare ("ParisTopic", "retard") ;
